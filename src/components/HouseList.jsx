@@ -1,5 +1,6 @@
 import loadingStatus from "../helpers/loadingStatus";
 import useHouses from "../hooks/useHouses";
+import ErrorBoundary from "./ErrorBoundary";
 import HouseRow from "./HouseRow";
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -37,8 +38,9 @@ const HouseList = ({selectHouse}) => {
           </tr>
         </thead>
         <tbody>
-          {houses.map(h => <HouseRow key={h.id}
-            selectHouse={selectHouse} house={h} />)}
+          <ErrorBoundary fallback="Error loading house rows!">
+            {houses.map(h => <HouseRow key={h.id} selectHouse={selectHouse} house={h} />)}
+          </ErrorBoundary>
         </tbody>
       </table>
       <button onClick={addHouse} className="btn btn-primary">
